@@ -1,4 +1,13 @@
 
+document.addEventListener("DOMContentLoaded", () => {
+	createCaptcha();
+
+	const scrollSpy = new bootstrap.ScrollSpy(document.body, {
+		target: '#navbar'
+	})
+});
+
+
 var code;
 
 //Generate Captcha
