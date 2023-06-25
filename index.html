@@ -16,9 +16,22 @@
 
 	</head>
 
-	<body onload="createCaptcha()">
+	<body>
+	
+		<header id="header" class="d-none d-lg-flex flex-column justify-content-center">
+			<nav id="navbar" class="navbar nav-menu">
+				<ul>
+					<li><a href="#hero" class="nav-link"><i class="bi bi-house"></i> <span>Home</span></a></li>
+					<li><a href="#about" class="nav-link"><i class="bi bi-incognito"></i> <span>About</span></a></li>
+					<li><a href="#experience" class="nav-link"><i class="bi bi-briefcase"></i> <span>Experience</span></a></li>
+					<li><a href="#edu" class="nav-link"><i class="bi bi-book-half"></i> <span>Education</span></a></li>
+					<li><a href="#skills" class="nav-link"><i class="bi bi-bullseye"></i> <span>Skills</span></a></li>
+					<li><a href="#contact" class="nav-link"><i class="bi bi-envelope-at"></i> <span>Contact</span></a></li>
+				</ul>
+			</nav>
+		</header>
 
-		<section class="vh-100" id="hero" style="background: url(https://getuikit.com/images/section-background.svg) 50% 17vh no-repeat, linear-gradient(to left top, #bfc4e0, #737caf) 0 0 no-repeat;">
+		<section class="vh-100" id="hero" style="background: url(https://getuikit.com/images/section-background.svg) 50% 17vh no-repeat, linear-gradient(to left top, #bfc4e0, #737caf) 0 0 no-repeat;" data-bs-spy="scroll" data-bs-target="#navbar" data-bs-smooth-scroll="true">
 		<div class="container py-5 h-100">
 			<div class="row d-flex justify-content-center align-items-center h-100">
 				<div class="col-11 col-md-9 col-lg-7 col-xl-6">
@@ -49,7 +62,7 @@
 		</div>
 		</section>
 		
-		<section class="" id="about" style="background: #FFFFFF 50% 17vh no-repeat, linear-gradient(to left top, #bfc4e0, #737caf) 0 0 no-repeat;">
+		<section class="" id="about" style="background: #FFFFFF 50% 17vh no-repeat, linear-gradient(to left top, #bfc4e0, #737caf) 0 0 no-repeat;" data-bs-spy="scroll" data-bs-target="#navbar" data-bs-smooth-scroll="true">
 		<div class="container py-5 h-100">
 			<div class="row d-flex justify-content-center align-items-center h-100">
 				<div class="col-11 col-md-11 col-lg-11 col-xl-9">
@@ -66,7 +79,7 @@
 		</div>
 		</section>
 		
-		<section class="" id="experience" style="background: #FFFFFF 50% 17vh no-repeat, linear-gradient(to left top, #bfc4e0, #737caf) 0 0 no-repeat;">
+		<section class="" id="experience" style="background: #FFFFFF 50% 17vh no-repeat, linear-gradient(to left top, #bfc4e0, #737caf) 0 0 no-repeat;" data-bs-spy="scroll" data-bs-target="#navbar" data-bs-smooth-scroll="true">
 		<div class="container py-5 h-100">
 			<div class="row d-flex justify-content-center align-items-center h-100">
 				<div class="col-11 col-md-11 col-lg-11 col-xl-9">
@@ -77,7 +90,7 @@
 								<h5 class="muted mb-0">House Officer</h5>
 								<p class="text-muted mb-0">Jul 2022 - Jul 2023</p>
 								<h6>Ayub Teaching Hospital, MTI, Abbottabad, PK</h6>
-								<p>Internal Medicine (Including Emergency) - Jul 22-Oct 22<br />Pediatrics - Oct 22-Jan 23<br />General Surgery (Including Emergency) - Jan 23-Apr 23<br />Trauma and Orthopedics - Apr 23-Jul 23</p>
+								<p>Internal Medicine (Including Emergency) - Jul 22-Oct 22<br />Pediatrics (Including Neonatology) - Oct 22-Jan 23<br />General Surgery (Including Emergency) - Jan 23-Apr 23<br />Trauma and Orthopedics - Apr 23-Jul 23</p>
 							</div>
 						</div>
 					</div>
@@ -86,7 +99,7 @@
 		</div>
 		</section>
 		
-		<section class="" id="edu" style="background: #FFFFFF 50% 17vh no-repeat, linear-gradient(to left top, #bfc4e0, #737caf) 0 0 no-repeat;">
+		<section class="" id="edu" style="background: #FFFFFF 50% 17vh no-repeat, linear-gradient(to left top, #bfc4e0, #737caf) 0 0 no-repeat;" data-bs-spy="scroll" data-bs-target="#navbar" data-bs-smooth-scroll="true">
 		<div class="container py-5 h-100">
 			<div class="row d-flex justify-content-center align-items-center h-100">
 				<div class="col-11 col-md-11 col-lg-11 col-xl-9">
@@ -110,7 +123,7 @@
 		</div>
 		</section>
 		
-		<section class="" id="skills" style="background: #FFFFFF 50% 17vh no-repeat, linear-gradient(to left top, #bfc4e0, #737caf) 0 0 no-repeat;">
+		<section class="" id="skills" style="background: #FFFFFF 50% 17vh no-repeat, linear-gradient(to left top, #bfc4e0, #737caf) 0 0 no-repeat;" data-bs-spy="scroll" data-bs-target="#navbar" data-bs-smooth-scroll="true">
 		<div class="container py-5 h-100">
 			<div class="row d-flex justify-content-center align-items-center h-100">
 				<div class="col-11 col-md-11 col-lg-11 col-xl-9">
@@ -122,14 +135,14 @@
 								<div class="progress mb-2">
 									<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-label="Microsoft Office" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
 								</div>
-								<p>Through my career, I have diagnosed and managed many pediatric and adult patients, presenting to the emergency department in a tertiary care hospital under the supervision of specialists.<br />This included conditions such as DKA, HHS, poisoning, peritonitis etc. among other life threatning emergencies.</p>
+								<p>Through my career, I have diagnosed and managed many pediatric and adult patients, presenting to the emergency department in a tertiary care hospital under the supervision of specialists.<br />This includes conditions such as DKA, HHS, poisoning etc. among other life threatning emergencies.</p>
 							</div>
 							<div class="card-content mt-5 ps-5 pe-5">
 								<h6>Trauma</h6>
 								<div class="progress mb-2">
 									<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-label="Microsoft Office" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
 								</div>
-								<p>I have acquired skills to manage acute trauma during my career. I am confidenet that I am able to provide primary care to the patient until specialist care can be provided.</p>
+								<p>I have acquired skills to manage acute trauma during my career. I have successfuly managed open and closed fractures, joint dislocations and other trauma related injuries. I am confidenet that I am able to provide primary care to the patient until specialist care can be provided.</p>
 							</div>
 							<div class="card-content mt-5 ps-5 pe-5">
 								<h6>Clinical Research</h6>
@@ -159,7 +172,7 @@
 		</div>
 		</section>
 		
-		<section class="" id="contact" style="background: url(https://getuikit.com/images/section-background.svg) 50% 10vh no-repeat, linear-gradient(to left top, #8F3A84, #737caf) 0 0 no-repeat;">
+		<section class="" id="contact" style="background: url(https://getuikit.com/images/section-background.svg) 50% 10vh no-repeat, linear-gradient(to left top, #8F3A84, #737caf) 0 0 no-repeat;" data-bs-spy="scroll" data-bs-target="#navbar" data-bs-smooth-scroll="true">
 		<div class="container py-5">
 			<div class="row d-flex justify-content-center align-items-center">
 				<div class="col-12 col-md-8 col-lg-6">
