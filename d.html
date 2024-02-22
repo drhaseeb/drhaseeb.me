@@ -1,0 +1,66 @@
+<html>
+<body>
+
+<form id="form">
+<input type="text" class="form-data"><br />
+<input type="text" class="form-data"><br />
+<input type="text" class="form-data"><br />
+<input type="text" class="form-data"><br />
+<input type="text" class="form-data"><br />
+<input type="text" class="form-data"><br />
+<input type="text" class="form-data"><br />
+<input type="text" class="form-data"><br />
+<input type="text" class="form-data"><br />
+<input type="text" class="form-data"><br />
+<input type="text" class="form-data"><br />
+<input type="text" class="form-data"><br />
+<input type="text" class="form-data"><br />
+</form>
+
+<script>
+// replace this with your web app URL
+const webAppUrl = 'https://script.google.com/macros/s/AKfycbz4VLbOPJXZUuatE-xaDL3_FWF00IzjEDRof9wyW2k5E1cJaCxq_d8fiJwUV39OJcGGSg/exec'
+
+// get the form element
+const form = document.getElementById('form')
+
+// get the form data elements
+const formData = document.getElementsByClassName('form-data')
+
+// get the data from the sheet using a fetch request
+fetch(webAppUrl + '?action=get')
+  .then(response => response.json())
+  .then(data => {
+    // loop through the data and prefill the form fields
+    for (let i = 0; i < data.length; i++) {
+      formData[i].value = data[i]
+    }
+  })
+
+// add an event listener to the form submit button
+form.addEventListener('submit', e => {
+  // prevent the default form submission
+  e.preventDefault()
+  
+  // create a new form data object
+  const fd = new FormData(form)
+  
+  // append the action parameter to the form data
+  fd.append('action', 'post')
+  
+  // send the form data to the web app using a fetch request
+  fetch(webAppUrl, { method: 'POST', body: fd })
+    .then(response => response.json())
+    .then(data => {
+      // check the result and display a message
+      if (data.result === 'success') {
+        alert('Form submitted successfully. Row: ' + data.row)
+      }
+      else {
+        alert('Form submission failed. Error: ' + data.error)
+      }
+    })
+})
+</script>
+</body>
+</html>
