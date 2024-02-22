@@ -30,7 +30,7 @@ const formData = document.getElementsByClassName('form-data')
 // get the data from the sheet using a fetch request
 fetch(webAppUrl + '?action=get', {
 crossDomain: true,
-method: "GET
+method: "GET"
 })
   .then(response => response.json())
   .then(data => {
