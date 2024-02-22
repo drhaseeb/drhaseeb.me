@@ -28,7 +28,10 @@ const form = document.getElementById('form')
 const formData = document.getElementsByClassName('form-data')
 
 // get the data from the sheet using a fetch request
-fetch(webAppUrl + '?action=get')
+fetch(webAppUrl + '?action=get', {
+crossDomain: true,
+method: "GET
+})
   .then(response => response.json())
   .then(data => {
     // loop through the data and prefill the form fields
