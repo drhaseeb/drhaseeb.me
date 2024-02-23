@@ -1,6 +1,6 @@
 <html>
 <body>
-
+  
 // Load the Google Sheets API
 <script src="https://apis.google.com/js/api.js"></script>
 
@@ -20,8 +20,8 @@
         spreadsheetId: SPREADSHEET_ID,
         range: RANGE,
       }).then(function(response) {
-        // Display the data on the website
-        displayData(response.result.values);
+        // Display the data as a form
+        displayForm(response.result.values);
       }, function(error) {
         // Handle the error
         console.error(error);
@@ -32,7 +32,7 @@
   // Load the API client on page load
   gapi.load('client', initClient);
 </script>
-  
+
 // Display the data as a form
 <script>
   function displayForm(data) {
@@ -127,6 +127,7 @@
     });
   }
 </script>
+
 
   
 </body>
