@@ -143,7 +143,7 @@
     // Loop through each column of data
     for (var i = 0; i < data[0].length; i++) {
       // Get the input element with the matching name
-      var input = document.querySelector('[name="' + data[0][i] + '"]');
+      var input = document.querySelector('input[name="' + data[0][i] + '"]');
       // Set the input value to the row data
       input.value = data[serial][i];
     }
