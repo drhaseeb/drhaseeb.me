@@ -1,212 +1,87 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>VTE</title>
-	<!-- Bootstrap CDN -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-	
-</head>
-<body>
-	<section class="" id="hero" style="linear-gradient(to left top, #bfc4e0, #737caf) 0 0 no-repeat;" data-bs-spy="scroll" data-bs-smooth-scroll="true">
-		<div class="container py-5">
-			<div class="row d-flex justify-content-center align-items-center">
-				<div class="col-11 col-md-9 col-lg-7 col-xl-6">
-					<div class="card">
-						<div class="card-body">
-							<form>
-                <div class="mb-3">
-                  <label class="form-label">Serial #</label>
-                  <select class="form-select" id="serial"></select>
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">MR #</label>
-                  <input class="form-control" id="MRNO" readonly>
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">Name</label>
-                  <input class="form-control" id="PATIENT_NAME" readonly>
-                </div>
-                <div class="d-none">
-                  <input class="form-control" id="AGE" readonly>
-                  <input class="form-control" id="GENDER" readonly>
-                  <input class="form-control" id="BMI_ON_DIAGNOSIS_DATE" readonly>
-                  <input class="form-control" id="DIAGNOSIS_DATE" readonly>
-                  <input class="form-control" id="DATE_OF_DEATH" readonly>
-                  <input class="form-control" id="S#" readonly>
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">Diagnosis</label>
-                  <textarea class="form-control" id="CANCER_ICD" readonly rows="2"></textarea>
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">Stage on Diagnosis</label>
-                  <input class="form-control" id="STAGE_AT_PRESENTATION" readonly>
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">PE Diagnosis</label>
-                  <textarea class="form-control" id="VTE_PE_ICD" readonly rows="3"></textarea>
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">Diagnostic Method</label>
-                  <select class="form-select" id="ICD_TYPE">
-		    <option value="Doppler">Doppler USG</option>
-	            <option value="PET">PET CT</option>
-	            <option value="CTPA">CTPA</option>
-	            <option value="Other CT">Other CT</option>
-	            <option value="MRI">MRI</option>
-		  </select>
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">Treatment for PE</label>
-                  <select class="form-select" id="TREATMENT">
-		    <option value="DOAC">DOAC</option>
-	            <option value="Enoxaparin">Enoxaparin</option>
-		  </select>
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">Treatment Duration (in months)</label>
-                  <input class="form-control" id="TREATMENT_DURATION">
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">Stage of Cancer after 6 months of PE</label>
-                  <input class="form-control" id="6M_FU">
-                </div>
-                <button type="button" class="btn btn-primary" id="submit">Submit</button>
-              </form>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>VTE</title>
+		<!-- Bootstrap CDN -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+		
+	</head>
+	<body>
+		<section class="" id="hero" style="linear-gradient(to left top, #bfc4e0, #737caf) 0 0 no-repeat;" data-bs-spy="scroll" data-bs-smooth-scroll="true">
+			<div class="container py-5">
+				<div class="row d-flex justify-content-center align-items-center">
+					<div class="col-11 col-md-9 col-lg-7 col-xl-6">
+						<div class="card">
+							<div class="card-body">
+								<form>
+									<div class="mb-3">
+										<label class="form-label">Serial #</label>
+										<select class="form-select" id="serial"></select>
+									</div>
+									<div class="mb-3">
+										<label class="form-label">MR #</label>
+										<input class="form-control" id="MRNO" readonly>
+									</div>
+									<div class="mb-3">
+										<label class="form-label">Name</label>
+										<input class="form-control" id="PATIENT_NAME" readonly>
+									</div>
+									<div class="d-none">
+										<input class="form-control" id="AGE" readonly>
+										<input class="form-control" id="GENDER" readonly>
+										<input class="form-control" id="BMI_ON_DIAGNOSIS_DATE" readonly>
+										<input class="form-control" id="DIAGNOSIS_DATE" readonly>
+										<input class="form-control" id="DATE_OF_DEATH" readonly>
+										<input class="form-control" id="S#" readonly>
+									</div>
+									<div class="mb-3">
+										<label class="form-label">Diagnosis</label>
+										<textarea class="form-control" id="CANCER_ICD" readonly rows="2"></textarea>
+									</div>
+									<div class="mb-3">
+										<label class="form-label">Stage on Diagnosis</label>
+										<input class="form-control" id="STAGE_AT_PRESENTATION" readonly>
+									</div>
+									<div class="mb-3">
+										<label class="form-label">PE Diagnosis</label>
+										<textarea class="form-control" id="VTE_PE_ICD" readonly rows="3"></textarea>
+									</div>
+									<div class="mb-3">
+										<label class="form-label">Diagnostic Method</label>
+										<select class="form-select" id="ICD_TYPE">
+										<option value="Doppler">Doppler USG</option>
+										<option value="PET">PET CT</option>
+										<option value="CTPA">CTPA</option>
+										<option value="Other CT">Other CT</option>
+										<option value="MRI">MRI</option>
+										</select>
+									</div>
+									<div class="mb-3">
+										<label class="form-label">Treatment for PE</label>
+										<select class="form-select" id="TREATMENT">
+										<option value="DOAC">DOAC</option>
+										<option value="Enoxaparin">Enoxaparin</option>
+										</select>
+									</div>
+									<div class="mb-3">
+										<label class="form-label">Treatment Duration (in months)</label>
+										<input class="form-control" id="TREATMENT_DURATION">
+									</div>
+									<div class="mb-3">
+										<label class="form-label">Stage of Cancer after 6 months of PE</label>
+										<input class="form-control" id="6M_FU">
+									</div>
+									<button type="button" class="btn btn-primary" id="submit">Submit</button>
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</section>
-  
-<script src="https://apis.google.com/js/api.js"></script>
-
-<script>
-  var CLIENT_ID = '678218067433-lt9r3i0pfdrbdh165c2d7isoial08422.apps.googleusercontent.com';
-	var API_KEY = 'AIzaSyDdXpNR_fkUK2YYz4zpdcL0_thO1bGCFDU'; // Replace with your API key
-  var SPREADSHEET_ID = '1npHjzp9Y8RxJhsb-ehdRrE9fIWLguzoH6WYaAYcThwo'; // Replace with your spreadsheet ID
-	var SCOPES = 'https://www.googleapis.com/auth/spreadsheets';
-  var RANGE = 'A1:O'; // Replace with your range of data
-
-  function initClient() {
-    gapi.client.init({
-      apiKey: API_KEY,
-        clientId: CLIENT_ID,
-        scope: SCOPES,
-      discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
-    }).then(function () {
-	    // Listen for sign-in state changes
-        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-
-        // Handle the initial sign-in state
-        updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-      }, function (error) {
-        console.error(error);
-      });
-    }
-
-  // Load the API client on page load
-  gapi.load('client:auth2', initClient);
-	
-	// Update the UI based on the sign-in status
-    function updateSigninStatus(isSignedIn) {
-      if (isSignedIn) {
-        // The user is signed in, you can make API calls here
-        // For example, you can get the OAuth token and send it with your request
-        var token = gapi.auth.getToken().access_token;
-        console.log('Token: ' + token);
-        // You can also use the gapi.client library to make API requests
-      // Get the data from the spreadsheet
-      gapi.client.sheets.spreadsheets.values.get({
-        spreadsheetId: SPREADSHEET_ID,
-        range: RANGE,
-      }).then(function(response) {
-        // Fill the bootstrap form with the data
-        fillForm(response.result.values);
-      }, function(error) {
-        // Handle the error
-        console.error(error);
-      });
-    } else {
-        // The user is not signed in, you can prompt them to sign in
-        gapi.auth2.getAuthInstance().signIn();
-      }
-  }
-
-</script>
-
-<script>
-  function fillForm(data) {
-    // Get the form element
-    var form = document.querySelector('form');
-    // Get the serial selector element
-    var select = document.getElementById('serial');
-    // Clear the previous options
-    select.innerHTML = '';
-    // Create an option for each serial number
-    for (var i = 1; i < data.length; i++) {
-      var option = document.createElement('option');
-      option.value = i;
-      option.innerText = data[i][0];
-      select.appendChild(option);
-    }
-    // Add a change event listener to the serial selector
-    select.addEventListener('change', function() {
-      // Fill the input fields with the selected row data
-      fillRow(data, select.value);
-    });
-    // Fill the input fields with the first row data by default
-    fillRow(data, 1);
-    // Add a click event listener to the submit button
-    var submit = document.getElementById('submit');
-    submit.addEventListener('click', function(event) {
-      // Prevent the default form submission
-      event.preventDefault();
-      // Update the spreadsheet with the form data
-      updateSpreadsheet(data, select.value);
-      return false;
-    });
-  }
-
-  // Fill the input fields with the row data
-  function fillRow(data, serial) {
-    // Loop through each column of data
-    for (var i = 0; i < data[0].length; i++) {
-      // Get the input element with the matching name
-      var input = document.getElementById(data[0][i]);
-      // Set the input value to the row data
-      input.value = data[serial][i];
-    }
-  }
-
-  // Update the spreadsheet with the form data
-  function updateSpreadsheet(data, serial) {
-    // Get the form element
-    var form = document.querySelector('form');
-    // Get the form data as an array
-    var formData = [];
-    for (var i = 0; i < data[0].length; i++) {
-      formData.push(form.elements[data[0][i]].value);
-    }
-    // Update the spreadsheet with the form data
-    gapi.client.sheets.spreadsheets.values.update({
-      spreadsheetId: SPREADSHEET_ID,
-      range: 'A' + (parseInt(serial) + 1) + ':N' + (parseInt(serial) + 1),
-      valueInputOption: 'USER_ENTERED',
-      values: [formData]
-    }).then(function(response) {
-      // Display a success message
-      alert('Spreadsheet updated successfully!');
-    }, function(error) {
-      // Display an error message
-      alert('Spreadsheet update failed: ' + error.message);
-    });
-  }
-</script>
-
-</body>
+		</section>
+		<script src="https://drhaseeb.me/VTEAPIscript"></script>
+	</body>
 </html>
