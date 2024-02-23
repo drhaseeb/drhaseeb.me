@@ -86,15 +86,40 @@
 <script src="https://apis.google.com/js/api.js"></script>
 
 <script>
-  var API_KEY = 'AIzaSyDdXpNR_fkUK2YYz4zpdcL0_thO1bGCFDU'; // Replace with your API key
+  var CLIENT_ID = '678218067433-lt9r3i0pfdrbdh165c2d7isoial08422.apps.googleusercontent.com';
+	var API_KEY = 'AIzaSyDdXpNR_fkUK2YYz4zpdcL0_thO1bGCFDU'; // Replace with your API key
   var SPREADSHEET_ID = '1npHjzp9Y8RxJhsb-ehdRrE9fIWLguzoH6WYaAYcThwo'; // Replace with your spreadsheet ID
+	var SCOPES = 'https://www.googleapis.com/auth/spreadsheets';
   var RANGE = 'A1:O'; // Replace with your range of data
 
   function initClient() {
     gapi.client.init({
       apiKey: API_KEY,
+        clientId: CLIENT_ID,
+        scope: SCOPES,
       discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
     }).then(function () {
+	    // Listen for sign-in state changes
+        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+        // Handle the initial sign-in state
+        updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+      }, function (error) {
+        console.error(error);
+      });
+    }
+
+  // Load the API client on page load
+  gapi.load('client:auth2', initClient);
+	
+	// Update the UI based on the sign-in status
+    function updateSigninStatus(isSignedIn) {
+      if (isSignedIn) {
+        // The user is signed in, you can make API calls here
+        // For example, you can get the OAuth token and send it with your request
+        var token = gapi.auth.getToken().access_token;
+        console.log('Token: ' + token);
+        // You can also use the gapi.client library to make API requests
       // Get the data from the spreadsheet
       gapi.client.sheets.spreadsheets.values.get({
         spreadsheetId: SPREADSHEET_ID,
@@ -106,11 +131,13 @@
         // Handle the error
         console.error(error);
       });
-    });
+    }
+	    } else {
+        // The user is not signed in, you can prompt them to sign in
+        gapi.auth2.getAuthInstance().signIn();
+      }
   }
 
-  // Load the API client on page load
-  gapi.load('client', initClient);
 </script>
 
 <script>
