@@ -1,9 +1,81 @@
+<!DOCTYPE html>
 <html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>VTE</title>
+	<!-- Bootstrap CDN -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+	
+</head>
 <body>
-  <form>
-    <select></select>
-    <div id="row"></div>div>
-  </form>
+	<section class="" id="hero" style="linear-gradient(to left top, #bfc4e0, #737caf) 0 0 no-repeat;" data-bs-spy="scroll" data-bs-smooth-scroll="true">
+		<div class="container py-5">
+			<div class="row d-flex justify-content-center align-items-center">
+				<div class="col-11 col-md-9 col-lg-7 col-xl-6">
+					<div class="card">
+						<div class="card-body">
+							<form>
+                <div class="mb-3">
+                  <label class="form-label">Serial #</label>
+                  <select class="form-select" id="serial"></select>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">MR #</label>
+                  <input class="form-control" name="MRNO" disabled>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Name</label>
+                  <input class="form-control" name="PATIENT_NAME" disabled>
+                </div>
+                <div class="d-none">
+                  <input class="form-control" name="AGE" disabled>
+                  <input class="form-control" name="GENDER" disabled>
+                  <input class="form-control" name="BMI_ON_DIAGNOSIS_DATE" disabled>
+                  <input class="form-control" name="DIAGNOSIS_DATE" disabled>
+                  <input class="form-control" name="DATE_OF_DEATH" disabled>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Diagnosis</label>
+                  <input class="form-control" name="CANCER_ICD" disabled>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Stage on Diagnosis</label>
+                  <input class="form-control" name="STAGE_AT_PRESENTATION" disabled>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">PE Diagnosis</label>
+                  <input class="form-control" name="VTE_PE_ICD" disabled>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Diagnostic Method</label>
+                  <input class="form-control" name="ICD_TYPE" disabled>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Treatment for PE</label>
+                  <select class="form-select" name="TREATMENT">
+                    <option value="DOAC">DOAC</option>
+                    <option value="Enoxaparin">Enoxaparin</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Treatment Duration (in months)</label>
+                  <input class="form-control" name="TREATMENT_DURATION">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Stage of Cancer after 6 months of PE</label>
+                  <input class="form-control" name="6M_FU">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+  
 // Load the Google Sheets API
 <script src="https://apis.google.com/js/api.js"></script>
 
@@ -23,8 +95,8 @@
         spreadsheetId: SPREADSHEET_ID,
         range: RANGE,
       }).then(function(response) {
-        // Display the data as a form
-        displayForm(response.result.values);
+        // Fill the bootstrap form with the data
+        fillForm(response.result.values);
       }, function(error) {
         // Handle the error
         console.error(error);
@@ -36,25 +108,15 @@
   gapi.load('client', initClient);
 </script>
 
-// Display the data as a form
+// Fill the bootstrap form with the data
 <script>
-  function displayForm(data) {
-    // Create a form element
-    var form = document.createElement('form');
-    form.method = 'post';
-
-    // Create a serial number selector
-    var select = document.createElement('select');
-    select.name = 'serial';
-    select.addEventListener('change', function() {
-      // Display the row with the selected serial number
-      var serial = parseInt(select.value);
-      if (serial >= 1 && serial < data.length) {
-        displayRow(data, serial);
-      }
-    });
-    form.appendChild(select);
-
+  function fillForm(data) {
+    // Get the form element
+    var form = document.querySelector('form');
+    // Get the serial selector element
+    var select = document.getElementById('serial');
+    // Clear the previous options
+    select.innerHTML = '';
     // Create an option for each serial number
     for (var i = 1; i < data.length; i++) {
       var option = document.createElement('option');
@@ -62,47 +124,31 @@
       option.innerText = data[i][0];
       select.appendChild(option);
     }
-
-    // Create a div to display the row data
-    var rowDiv = document.createElement('div');
-    rowDiv.id = 'row';
-    form.appendChild(rowDiv);
-
-    // Display the first row by default
-    displayRow(data, 1);
-
-    // Create a submit button
-    var submit = document.createElement('input');
-    submit.type = 'submit';
-    submit.value = 'Update';
+    // Add a change event listener to the serial selector
+    select.addEventListener('change', function() {
+      // Fill the input fields with the selected row data
+      fillRow(data, select.value);
+    });
+    // Fill the input fields with the first row data by default
+    fillRow(data, 1);
+    // Add a click event listener to the submit button
+    var submit = document.getElementById('submit');
     submit.addEventListener('click', function(event) {
       // Prevent the default form submission
       event.preventDefault();
       // Update the spreadsheet with the form data
       updateSpreadsheet(data, select.value);
     });
-    form.appendChild(submit);
-
-    // Append the form to the body of the document
-    document.body.appendChild(form);
   }
 
-  // Display the row data as input fields
-  function displayRow(data, serial) {
-    // Get the row div element
-    var rowDiv = document.getElementById('row');
-    // Clear the previous row data
-    rowDiv.innerHTML = '';
-    // Create a label and an input for each column
+  // Fill the input fields with the row data
+  function fillRow(data, serial) {
+    // Loop through each column of data
     for (var i = 0; i < data[0].length; i++) {
-      var label = document.createElement('label');
-      label.innerText = data[0][i] + ': ';
-      rowDiv.appendChild(label);
-      var input = document.createElement('input');
-      input.name = data[0][i];
+      // Get the input element with the matching name
+      var input = document.querySelector('[name="' + data[0][i] + '"]');
+      // Set the input value to the row data
       input.value = data[serial][i];
-      rowDiv.appendChild(input);
-      rowDiv.appendChild(document.createElement('br'));
     }
   }
 
@@ -131,7 +177,5 @@
   }
 </script>
 
-
-  
 </body>
 </html>
