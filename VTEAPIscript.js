@@ -81,7 +81,6 @@ function updateSpreadsheet(data, serial) {
 	// Update the spreadsheet with the form data
 	fetch("https://script.google.com/macros/s/AKfycbydfy4j97I9OiEe7_pT4ZXrYY7impBB9A4PvMCODxvyKJWvZKvxdF6kPrNFob0ZrAQC/exec", {
 		method: "POST",
-		mode: "no-cors",
 		body: formData
 	}).then(function(response) {
 		// Parse the response as JSON
