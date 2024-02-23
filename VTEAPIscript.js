@@ -78,27 +78,26 @@ function updateSpreadsheet(data, serial) {
 	}
 	*/
 	var formData = new FormData(form);
-	// Update the spreadsheet with the form data
 	
-	const fetchData = async (scriptURL, data) => {
-		var json;
-		try {
-			const response = await fetch(scriptURL, {
-				method: 'POST',
-				body: JSON.stringify(formData),
-			});
-			if (response != "") json = await response.json();
-			console.log('Success:', JSON.stringify(json));
-		} catch (e) {
-			console.log('Errors:', e.message)
+	// Fetch the web app URL with a POST request and the form data as the body
+	fetch("https://script.google.com/macros/s/AKfycbzLYOsl1eXuOltHEKcs4KchmTPq6gCum5o0zufOyUqQ_CN88gxCzwZJsNHOWg1wTWPr/exec", {
+		method: "POST",
+		body: formData
+	})
+	.then(function(response) {
+		// Parse the response as JSON
+		return response.json();
+	})
+	.then(function(data) {
+		// Display a success or error message based on the result
+		if (data.result === "success") {
+			alert("Data updated successfully!");
+		} else {
+			alert("Error: " + data.error);
 		}
-		return json;
-	}
-	
-	async function main() {
-		const res = await fetchData("https://script.google.com/macros/s/AKfycbzLYOsl1eXuOltHEKcs4KchmTPq6gCum5o0zufOyUqQ_CN88gxCzwZJsNHOWg1wTWPr/exec");
-		console.log(res);
-	}
-	
-	main();
+	})
+	.catch(function(error) {
+		// Display a generic error message
+		alert("Something went wrong: " + error);
+	});
 }
