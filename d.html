@@ -108,7 +108,8 @@
 
 <script>
   function fillForm(data) {
-    // Get the form element
+	  alert(data.length)
+    /*/ Get the form element
     var form = document.querySelector('form');
     // Get the serial selector element
     var select = document.getElementById('serial');
@@ -138,7 +139,7 @@
     });
   }
 
-  // Fill the input fields with the row data
+  */// Fill the input fields with the row data
   function fillRow(data, serial) {
     // Loop through each column of data
     for (var i = 0; i < data[0].length; i++) {
