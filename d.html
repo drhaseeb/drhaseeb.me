@@ -153,7 +153,7 @@
       // Get the input element with the matching name
       var input = document.getElementById(data[0][i]);
       // Set the input value to the row data
-	    if(data[serial][i]===null) data[serial][i] === "-";
+	    if(data[serial][i]==="") data[serial][i] === "-";
       input.value = data[serial][i];
 	    alert(input.value);
     }
@@ -161,7 +161,6 @@
 
   // Update the spreadsheet with the form data
   function updateSpreadsheet(data, serial) {
-	  event.preventDefault();
 	  alert('submitting');
     // Get the form element
     var form = document.querySelector('form');
