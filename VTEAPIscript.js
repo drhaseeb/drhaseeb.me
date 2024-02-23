@@ -13,10 +13,14 @@ var client = google.accounts.oauth2.initTokenClient({
 	client_id: CLIENT_ID,
 	scope: SCOPES,
 	callback: (tokenResponse) => {
-		// The user is signed in, you can make API calls here
-		// For example, you can get the OAuth token and send it with your request
+		// The user is signed in
 		var token = tokenResponse.access_token;
 		console.log('Token: ' + token);
+		// Change Get Token button
+		var btnSuccess = document.getElementsByClassName(".btn-success");
+		btnSuccess.innerHTML = "Signed In";
+
+		// API calls
 	},
 });
 
@@ -29,5 +33,7 @@ function getToken() {
 function revokeToken() {
 	google.accounts.oauth2.revoke(token, () => {
 		console.log('Token revoked');
+		var btnSuccess = document.getElementsByClassName(".btn-success");
+		btnSuccess.innerHTML = "Get Token";
 	});
 }
