@@ -74,11 +74,34 @@ function updateSpreadsheet(data, serial) {
 	/*
 	var formData = [];
 	for (var i = 0; i < data[0].length; i++) {
-		formData.push(form.elements[data[0][i]].value);
+	formData.push(form.elements[data[0][i]].value);
 	}
- 	*/
+	*/
 	var formData = new FormData(form);
 	// Update the spreadsheet with the form data
+	
+	const fetchData = async (scriptURL, data) => {
+		var json;
+		try {
+			const response = await fetch(scriptURL, {
+				method: 'POST',
+				body: JSON.stringify(formData),
+			});
+			if (response != "") json = await response.json();
+			console.log('Success:', JSON.stringify(json));
+		} catch (e) {
+			console.log('Errors:', e.message)
+		}
+		return json;
+	}
+	
+	async function main() {
+		const res = await fetchData("https://script.google.com/macros/s/AKfycbzLYOsl1eXuOltHEKcs4KchmTPq6gCum5o0zufOyUqQ_CN88gxCzwZJsNHOWg1wTWPr/exec", {key1: "value1"});
+		console.log(res);
+	}
+	
+	main();
+	
 	fetch("https://script.google.com/macros/s/AKfycbzLYOsl1eXuOltHEKcs4KchmTPq6gCum5o0zufOyUqQ_CN88gxCzwZJsNHOWg1wTWPr/exec", {
 		method: "POST",
 		mode: "no-cors",
