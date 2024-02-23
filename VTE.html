@@ -7,7 +7,6 @@
 		<title>VTE</title>
 		<!-- Bootstrap CDN -->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-		<script src="https://accounts.google.com/gsi/client"></script>
 		<script src="https://apis.google.com/js/api.js"></script>
 	</head>
 	<body>
@@ -15,50 +14,44 @@
 			<div class="container py-5">
 				<div class="row d-flex justify-content-center align-items-center">
 					<div class="col-11 col-md-9 col-lg-7 col-xl-6">
-						<div class="card mb-5">
-							<div class="card-body">
-								<button type="button" id="login" class="btn btn-success mb-3 w-100" onclick="getToken();">Get Token</button>
-								<button type="button" id="logout" class="btn btn-danger w-100" onclick="revokeToken();">Revoke Token</button>
-							</div>
-						</div>
 						<div class="card">
 							<div class="card-body">
 								<form>
 									<div class="mb-3">
 										<label class="form-label">Serial #</label>
-										<select class="form-select" id="serial"></select>
+										<select class="form-select" id="serial" name="id"></select>
 									</div>
 									<div class="mb-3">
 										<label class="form-label">MR #</label>
-										<input class="form-control" id="MRNO" readonly>
+										<input class="form-control" id="MRNO" name="MRNO" readonly>
 									</div>
 									<div class="mb-3">
 										<label class="form-label">Name</label>
-										<input class="form-control" id="PATIENT_NAME" readonly>
+										<input class="form-control" id="PATIENT_NAME" name="PATIENT_NAME" readonly>
 									</div>
 									<div class="d-none">
-										<input class="form-control" id="AGE" readonly>
-										<input class="form-control" id="GENDER" readonly>
-										<input class="form-control" id="BMI_ON_DIAGNOSIS_DATE" readonly>
-										<input class="form-control" id="DIAGNOSIS_DATE" readonly>
-										<input class="form-control" id="DATE_OF_DEATH" readonly>
-										<input class="form-control" id="S#" readonly>
+										<input class="form-control" id="AGE" name="AGE" readonly>
+										<input class="form-control" id="GENDER" name="GENDER" readonly>
+										<input class="form-control" id="BMI_ON_DIAGNOSIS_DATE" name="BMI_ON_DIAGNOSIS_DATE" readonly>
+										<input class="form-control" id="DIAGNOSIS_DATE" name="DIAGNOSIS_DATE" readonly>
+										<input class="form-control" id="DATE_OF_DEATH" name="DATE_OF_DEATH" readonly>
+										<input class="form-control" id="S#" name="S#" readonly>
 									</div>
 									<div class="mb-3">
 										<label class="form-label">Diagnosis</label>
-										<textarea class="form-control" id="CANCER_ICD" readonly rows="2"></textarea>
+										<textarea class="form-control" id="CANCER_ICD" name="CANCER_ICD" readonly rows="2"></textarea>
 									</div>
 									<div class="mb-3">
 										<label class="form-label">Stage on Diagnosis</label>
-										<input class="form-control" id="STAGE_AT_PRESENTATION" readonly>
+										<input class="form-control" id="STAGE_AT_PRESENTATION" name="STAGE_AT_PRESENTATION" readonly>
 									</div>
 									<div class="mb-3">
 										<label class="form-label">PE Diagnosis</label>
-										<textarea class="form-control" id="VTE_PE_ICD" readonly rows="3"></textarea>
+										<textarea class="form-control" id="VTE_PE_ICD" name="VTE_PE_ICD" readonly rows="3"></textarea>
 									</div>
 									<div class="mb-3">
 										<label class="form-label">Diagnostic Method</label>
-										<select class="form-select" id="ICD_TYPE">
+										<select class="form-select" id="ICD_TYPE" name="ICD_TYPE">
 										<option value="Doppler">Doppler USG</option>
 										<option value="PET">PET CT</option>
 										<option value="CTPA">CTPA</option>
@@ -68,18 +61,18 @@
 									</div>
 									<div class="mb-3">
 										<label class="form-label">Treatment for PE</label>
-										<select class="form-select" id="TREATMENT">
+										<select class="form-select" id="TREATMENT" name="TREATMENT">
 										<option value="DOAC">DOAC</option>
 										<option value="Enoxaparin">Enoxaparin</option>
 										</select>
 									</div>
 									<div class="mb-3">
 										<label class="form-label">Treatment Duration (in months)</label>
-										<input class="form-control" id="TREATMENT_DURATION">
+										<input class="form-control" id="TREATMENT_DURATION" name="TREATMENT_DURATION">
 									</div>
 									<div class="mb-3">
 										<label class="form-label">Stage of Cancer after 6 months of PE</label>
-										<input class="form-control" id="6M_FU">
+										<input class="form-control" id="6M_FU" name="6M_FU">
 									</div>
 									<button type="button" class="btn btn-primary" id="submit">Submit</button>
 								</form>
@@ -89,125 +82,6 @@
 				</div>
 			</div>
 		</section>
-		<script>
-			// Your client ID and API key from the Google Cloud console
-			var CLIENT_ID = '678218067433-lt9r3i0pfdrbdh165c2d7isoial08422.apps.googleusercontent.com';
-			var API_KEY = 'AIzaSyDdXpNR_fkUK2YYz4zpdcL0_thO1bGCFDU';
-			
-			// The scopes you need to access the Google Sheets API
-			var SCOPES = 'https://www.googleapis.com/auth/spreadsheets';
-			
-			// The ID of the spreadsheet you want to access
-			var SPREADSHEET_ID = '1npHjzp9Y8RxJhsb-ehdRrE9fIWLguzoH6WYaAYcThwo';
-			
-			// The range of cells inside spreadsheet
-			var RANGE = 'A1:O';
-			
-			// Initialize the Google Identity Services client
-			var client = google.accounts.oauth2.initTokenClient({
-				client_id: CLIENT_ID,
-				scope: SCOPES,
-				callback: (tokenResponse) => {
-					// The user is signed in
-					var token = tokenResponse.access_token;
-					console.log('Token: ' + token);
-					// Change Get Token button
-					document.getElementById("login").innerHTML = "Signed In";
-					alert("done")
-					// Get the data from the spreadsheet
-					gapi.client.sheets.spreadsheets.values.get({
-						spreadsheetId: SPREADSHEET_ID,
-						range: RANGE,
-					}).then(function(response) {
-						// Fill the bootstrap form with the data
-						fillForm(response.result.values);
-					}, function(error) {
-						// Handle the error
-						console.error(error);
-					});
-				},
-			});
-			
-			// Request an access token from the user
-			function getToken() {
-				client.requestAccessToken();
-			}
-			
-			// Revoke the access token from the user
-			function revokeToken() {
-				google.accounts.oauth2.revoke(token, () => {
-					console.log('Token revoked');
-					document.getElementById("login").innerHTML = "Get Token";
-				});
-			}
-			
-			// Fill form
-			function fillForm(data) {
-				// Get the form element
-				var form = document.querySelector('form');
-				// Get the serial selector element
-				var select = document.getElementById('serial');
-				// Clear the previous options
-				select.innerHTML = '';
-				// Create an option for each serial number
-				for (var i = 1; i < data.length; i++) {
-					var option = document.createElement('option');
-					option.value = i;
-					option.innerText = data[i][0];
-					select.appendChild(option);
-				}
-				// Add a change event listener to the serial selector
-				select.addEventListener('change', function() {
-					// Fill the input fields with the selected row data
-					fillRow(data, select.value);
-				});
-				// Fill the input fields with the first row data by default
-				fillRow(data, 1);
-				// Add a click event listener to the submit button
-				var submit = document.getElementById('submit');
-				submit.addEventListener('click', function(event) {
-					// Prevent the default form submission
-					event.preventDefault();
-					// Update the spreadsheet with the form data
-					updateSpreadsheet(data, select.value);
-				});
-			}
-			
-			// Fill the input fields with the row data
-			function fillRow(data, serial) {
-				// Loop through each column of data
-				for (var i = 0; i < data[0].length; i++) {
-					// Get the input element with the matching name
-					var input = document.getElementById(data[0][i]);
-					// Set the input value to the row data
-					input.value = data[serial][i];
-				}
-			}
-			
-			// Update the spreadsheet with the form data
-			function updateSpreadsheet(data, serial) {
-				// Get the form element
-				var form = document.querySelector('form');
-				// Get the form data as an array
-				var formData = [];
-				for (var i = 0; i < data[0].length; i++) {
-					formData.push(form.elements[data[0][i]].value);
-				}
-				// Update the spreadsheet with the form data
-				gapi.client.setToken({access_token: token});
-				gapi.client.sheets.spreadsheets.values.update({
-					spreadsheetId: SPREADSHEET_ID,
-					range: 'A' + (parseInt(serial) + 1) + ':N' + (parseInt(serial) + 1),
-					valueInputOption: 'USER_ENTERED',
-					values: [formData]
-				}).then(function(response) {
-					// Display a success message
-					alert('Spreadsheet updated successfully!');
-				}, function(error) {
-					// Display an error message
-					alert('Spreadsheet update failed: ' + error.message);
-				});
-			}
-		</script>
+		<script src="https:drhaseeb.me/VTEAPIscript.js"></script>
 	</body>
 </html>
