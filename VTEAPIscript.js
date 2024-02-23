@@ -76,7 +76,7 @@ function updateSpreadsheet(data, serial) {
 		formData.push(form.elements[data[0][i]].value);
 	}
 	// Update the spreadsheet with the form data
-	fetch("https://script.google.com/macros/s/AKfycbykmUa5hrlE0Qmy52WB_bTQ-A5Qwsb5h9vTFB3fGGtV5ME-YYEJEg2ZVw83_Vm-DZBp/exec"{
+	fetch("https://script.google.com/macros/s/AKfycbykmUa5hrlE0Qmy52WB_bTQ-A5Qwsb5h9vTFB3fGGtV5ME-YYEJEg2ZVw83_Vm-DZBp/exec", {
 		method: "POST",
 		body: [formData]
 	}).then(function(response) {
