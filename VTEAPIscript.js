@@ -96,7 +96,7 @@ function updateSpreadsheet(data, serial) {
 	}
 	
 	async function main() {
-		const res = await fetchData("https://script.google.com/macros/s/AKfycbzLYOsl1eXuOltHEKcs4KchmTPq6gCum5o0zufOyUqQ_CN88gxCzwZJsNHOWg1wTWPr/exec", JSON.stringify(formData));
+		const res = await fetchData("https://script.google.com/macros/s/AKfycbzLYOsl1eXuOltHEKcs4KchmTPq6gCum5o0zufOyUqQ_CN88gxCzwZJsNHOWg1wTWPr/exec");
 		console.log(res);
 	}
 	
