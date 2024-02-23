@@ -108,8 +108,7 @@
 
 <script>
   function fillForm(data) {
-	  alert(data.length);
-    /*/ Get the form element
+    // Get the form element
     var form = document.querySelector('form');
     // Get the serial selector element
     var select = document.getElementById('serial');
@@ -136,7 +135,7 @@
       event.preventDefault();
       // Update the spreadsheet with the form data
       updateSpreadsheet(data, select.value);
-    });*/
+    });
   }
 
   // Fill the input fields with the row data
@@ -146,7 +145,8 @@
       // Get the input element with the matching name
       var input = document.getElementById(data[0][i]);
       // Set the input value to the row data
-      input.value = data[serial][i];
+	    alert(input);
+      //input.value = data[serial][i];
     }
   }
 
