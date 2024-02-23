@@ -16,8 +16,8 @@
 					<div class="col-11 col-md-9 col-lg-7 col-xl-6">
 						<div class="card mb-5">
 							<div class="card-body">
-								<button type="button" class="btn btn-success mb-3 w-100" onclick="getToken();">Get Token</button>
-								<button type="button" class="btn btn-danger w-100" onclick="revokeToken();">Revoke Token</button>
+								<button type="button" id="login" class="btn btn-success mb-3 w-100" onclick="getToken();">Get Token</button>
+								<button type="button" id="logout" class="btn btn-danger w-100" onclick="revokeToken();">Revoke Token</button>
 							</div>
 						</div>
 						<div class="card">
@@ -111,9 +111,8 @@
 					var token = tokenResponse.access_token;
 					console.log('Token: ' + token);
 					// Change Get Token button
-					var btnSuccess = document.getElementsByClassName(".btn-success");
-					btnSuccess.innerHTML = "Signed In";
-			
+					document.getElementById("login").innerHTML = "Signed In";
+					alert("done")
 					// Get the data from the spreadsheet
 					gapi.client.sheets.spreadsheets.values.get({
 						spreadsheetId: SPREADSHEET_ID,
@@ -137,8 +136,7 @@
 			function revokeToken() {
 				google.accounts.oauth2.revoke(token, () => {
 					console.log('Token revoked');
-					var btnSuccess = document.getElementsByClassName(".btn-success");
-					btnSuccess.innerHTML = "Get Token";
+					document.getElementById("login").innerHTML = "Get Token";
 				});
 			}
 			
