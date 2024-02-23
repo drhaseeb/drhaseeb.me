@@ -32,56 +32,102 @@
   // Load the API client on page load
   gapi.load('client', initClient);
 </script>
-
-// Display the data on the website
+  
+// Display the data as a form
 <script>
-  function displayData(data) {
-    // Create a table element
-    var table = document.createElement('table');
-    table.border = '1';
+  function displayForm(data) {
+    // Create a form element
+    var form = document.createElement('form');
+    form.method = 'post';
 
-    // Create a table header row
-    var headerRow = document.createElement('tr');
-    for (var i = 0; i < data[0].length; i++) {
-      var headerCell = document.createElement('th');
-      headerCell.innerText = data[0][i];
-      headerRow.appendChild(headerCell);
-    }
-    table.appendChild(headerRow);
-
-    // Create a table body
-    var tbody = document.createElement('tbody');
-    for (var i = 1; i < data.length; i++) {
-      var dataRow = document.createElement('tr');
-      for (var j = 0; j < data[i].length; j++) {
-        var dataCell = document.createElement('td');
-        dataCell.innerText = data[i][j];
-        dataRow.appendChild(dataCell);
-      }
-      tbody.appendChild(dataRow);
-    }
-    table.appendChild(tbody);
-
-    // Append the table to the body of the document
-    document.body.appendChild(table);
-
-    // Add a navigation input
-    var input = document.createElement('input');
-    input.type = 'number';
-    input.min = '1';
-    input.max = data.length - 1;
-    input.value = '1';
-    input.addEventListener('change', function() {
-      // Navigate to the row with the given serial number
-      var serial = parseInt(input.value);
+    // Create a serial number selector
+    var select = document.createElement('select');
+    select.name = 'serial';
+    select.addEventListener('change', function() {
+      // Display the row with the selected serial number
+      var serial = parseInt(select.value);
       if (serial >= 1 && serial < data.length) {
-        var row = table.rows[serial];
-        row.scrollIntoView();
+        displayRow(data, serial);
       }
     });
-    document.body.appendChild(input);
+    form.appendChild(select);
+
+    // Create an option for each serial number
+    for (var i = 1; i < data.length; i++) {
+      var option = document.createElement('option');
+      option.value = i;
+      option.innerText = data[i][0];
+      select.appendChild(option);
+    }
+
+    // Create a div to display the row data
+    var rowDiv = document.createElement('div');
+    rowDiv.id = 'row';
+    form.appendChild(rowDiv);
+
+    // Display the first row by default
+    displayRow(data, 1);
+
+    // Create a submit button
+    var submit = document.createElement('input');
+    submit.type = 'submit';
+    submit.value = 'Update';
+    submit.addEventListener('click', function(event) {
+      // Prevent the default form submission
+      event.preventDefault();
+      // Update the spreadsheet with the form data
+      updateSpreadsheet(data, select.value);
+    });
+    form.appendChild(submit);
+
+    // Append the form to the body of the document
+    document.body.appendChild(form);
+  }
+
+  // Display the row data as input fields
+  function displayRow(data, serial) {
+    // Get the row div element
+    var rowDiv = document.getElementById('row');
+    // Clear the previous row data
+    rowDiv.innerHTML = '';
+    // Create a label and an input for each column
+    for (var i = 0; i < data[0].length; i++) {
+      var label = document.createElement('label');
+      label.innerText = data[0][i] + ': ';
+      rowDiv.appendChild(label);
+      var input = document.createElement('input');
+      input.name = data[0][i];
+      input.value = data[serial][i];
+      rowDiv.appendChild(input);
+      rowDiv.appendChild(document.createElement('br'));
+    }
+  }
+
+  // Update the spreadsheet with the form data
+  function updateSpreadsheet(data, serial) {
+    // Get the form element
+    var form = document.querySelector('form');
+    // Get the form data as an array
+    var formData = [];
+    for (var i = 0; i < data[0].length; i++) {
+      formData.push(form.elements[data[0][i]].value);
+    }
+    // Update the spreadsheet with the form data
+    gapi.client.sheets.spreadsheets.values.update({
+      spreadsheetId: SPREADSHEET_ID,
+      range: 'A' + (parseInt(serial) + 1) + ':N' + (parseInt(serial) + 1),
+      valueInputOption: 'USER_ENTERED',
+      values: [formData]
+    }).then(function(response) {
+      // Display a success message
+      alert('Spreadsheet updated successfully!');
+    }, function(error) {
+      // Display an error message
+      alert('Spreadsheet update failed: ' + error.message);
+    });
   }
 </script>
+
   
 </body>
 </html>
