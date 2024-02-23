@@ -1,69 +1,87 @@
 <html>
 <body>
 
-<form id="form">
-<input type="text" class="form-data"><br />
-<input type="text" class="form-data"><br />
-<input type="text" class="form-data"><br />
-<input type="text" class="form-data"><br />
-<input type="text" class="form-data"><br />
-<input type="text" class="form-data"><br />
-<input type="text" class="form-data"><br />
-<input type="text" class="form-data"><br />
-<input type="text" class="form-data"><br />
-<input type="text" class="form-data"><br />
-<input type="text" class="form-data"><br />
-<input type="text" class="form-data"><br />
-<input type="text" class="form-data"><br />
-</form>
+// Load the Google Sheets API
+<script src="https://apis.google.com/js/api.js"></script>
 
+// Initialize the API client
 <script>
-// replace this with your web app URL
-const webAppUrl = 'https://script.google.com/macros/s/AKfycbz4VLbOPJXZUuatE-xaDL3_FWF00IzjEDRof9wyW2k5E1cJaCxq_d8fiJwUV39OJcGGSg/exec'
+  var API_KEY = 'AIzaSyDdXpNR_fkUK2YYz4zpdcL0_thO1bGCFDU'; // Replace with your API key
+  var SPREADSHEET_ID = '1npHjzp9Y8RxJhsb-ehdRrE9fIWLguzoH6WYaAYcThwo'; // Replace with your spreadsheet ID
+  var RANGE = 'A1:N'; // Replace with your range of data
 
-// get the form element
-const form = document.getElementById('form')
+  function initClient() {
+    gapi.client.init({
+      apiKey: API_KEY,
+      discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
+    }).then(function () {
+      // Get the data from the spreadsheet
+      gapi.client.sheets.spreadsheets.values.get({
+        spreadsheetId: SPREADSHEET_ID,
+        range: RANGE,
+      }).then(function(response) {
+        // Display the data on the website
+        displayData(response.result.values);
+      }, function(error) {
+        // Handle the error
+        console.error(error);
+      });
+    });
+  }
 
-// get the form data elements
-const formData = document.getElementsByClassName('form-data')
-
-// get the data from the sheet using a fetch request
-fetch(webAppUrl + '?action=get', {
-crossDomain: true,
-method: "GET"
-})
-  .then(response => response.json())
-  .then(data => {
-    // loop through the data and prefill the form fields
-    for (let i = 0; i < data.length; i++) {
-      formData[i].value = data[i]
-    }
-  })
-
-// add an event listener to the form submit button
-form.addEventListener('submit', e => {
-  // prevent the default form submission
-  e.preventDefault()
-  
-  // create a new form data object
-  const fd = new FormData(form)
-  
-  // append the action parameter to the form data
-  fd.append('action', 'post')
-  
-  // send the form data to the web app using a fetch request
-  fetch(webAppUrl, { method: 'POST', body: fd })
-    .then(response => response.json())
-    .then(data => {
-      // check the result and display a message
-      if (data.result === 'success') {
-        alert('Form submitted successfully. Row: ' + data.row)
-      }
-      else {
-        alert('Form submission failed. Error: ' + data.error)
-      }
-    })
-})
+  // Load the API client on page load
+  gapi.load('client', initClient);
 </script>
+
+// Display the data on the website
+<script>
+  function displayData(data) {
+    // Create a table element
+    var table = document.createElement('table');
+    table.border = '1';
+
+    // Create a table header row
+    var headerRow = document.createElement('tr');
+    for (var i = 0; i < data[0].length; i++) {
+      var headerCell = document.createElement('th');
+      headerCell.innerText = data[0][i];
+      headerRow.appendChild(headerCell);
+    }
+    table.appendChild(headerRow);
+
+    // Create a table body
+    var tbody = document.createElement('tbody');
+    for (var i = 1; i < data.length; i++) {
+      var dataRow = document.createElement('tr');
+      for (var j = 0; j < data[i].length; j++) {
+        var dataCell = document.createElement('td');
+        dataCell.innerText = data[i][j];
+        dataRow.appendChild(dataCell);
+      }
+      tbody.appendChild(dataRow);
+    }
+    table.appendChild(tbody);
+
+    // Append the table to the body of the document
+    document.body.appendChild(table);
+
+    // Add a navigation input
+    var input = document.createElement('input');
+    input.type = 'number';
+    input.min = '1';
+    input.max = data.length - 1;
+    input.value = '1';
+    input.addEventListener('change', function() {
+      // Navigate to the row with the given serial number
+      var serial = parseInt(input.value);
+      if (serial >= 1 && serial < data.length) {
+        var row = table.rows[serial];
+        row.scrollIntoView();
+      }
+    });
+    document.body.appendChild(input);
+  }
+</script>
+  
 </body>
 </html>
