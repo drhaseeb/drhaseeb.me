@@ -80,7 +80,7 @@ function updateSpreadsheet(data, serial) {
 	var formData = new FormData(form);
 	
 	// Fetch the web app URL with a POST request and the form data as the body
-	fetch("https://script.google.com/macros/s/AKfycbzLYOsl1eXuOltHEKcs4KchmTPq6gCum5o0zufOyUqQ_CN88gxCzwZJsNHOWg1wTWPr/exec", {
+	fetch("https://script.google.com/macros/s/AKfycbyrYUwCFE7ort38i-dEorsKX7vjHlwG2MVHLDSd7NgvfBALoJ393oHU3GuiCKYdjNLt/exec", {
 		method: "POST",
 		body: formData,
 		followRedirects: true
