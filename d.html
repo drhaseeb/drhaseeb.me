@@ -30,38 +30,40 @@
                   <input class="form-control" id="PATIENT_NAME" readonly>
                 </div>
                 <div class="d-none">
-                  <input class="form-control" name="AGE" readonly>
-                  <input class="form-control" name="GENDER" readonly>
-                  <input class="form-control" name="BMI_ON_DIAGNOSIS_DATE" readonly>
-                  <input class="form-control" name="DIAGNOSIS_DATE" readonly>
-                  <input class="form-control" name="DATE_OF_DEATH" readonly>
+                  <input class="form-control" id="AGE" readonly>
+                  <input class="form-control" id="GENDER" readonly>
+                  <input class="form-control" id="BMI_ON_DIAGNOSIS_DATE" readonly>
+                  <input class="form-control" id="DIAGNOSIS_DATE" readonly>
+                  <input class="form-control" id="DATE_OF_DEATH" readonly>
+                  <input class="form-control" id="S#" readonly>
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Diagnosis</label>
-                  <input class="form-control" name="CANCER_ICD" readonly>
+                  <input class="form-control" id="CANCER_ICD" readonly>
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Stage on Diagnosis</label>
-                  <input class="form-control" name="STAGE_AT_PRESENTATION" readonly>
+                  <input class="form-control" id="STAGE_AT_PRESENTATION" readonly>
                 </div>
                 <div class="mb-3">
                   <label class="form-label">PE Diagnosis</label>
-                  <input class="form-control" name="VTE_PE_ICD" readonly>
+                  <input class="form-control" id="VTE_PE_ICD" readonly>
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Diagnostic Method</label>
-                  <input class="form-control" name="ICD_TYPE" readonly>
+                  <input class="form-control" id="ICD_TYPE" readonly>
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Treatment for PE</label>
-                  <select class="form-select" name="TREATMENT">
-                    <option value="DOAC">DOAC</option>
-                    <option value="Enoxaparin">Enoxaparin</option>
-                  </select>
+                  <input class="form-select" list="treatmentOptions" id="TREATMENT">
+			<datalist is="treatmentOptions">
+			  <option value="DOAC">DOAC</option>
+	                  <option value="Enoxaparin">Enoxaparin</option>
+			</datalist>
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Treatment Duration (in months)</label>
-                  <input class="form-control" name="TREATMENT_DURATION">
+                  <input class="form-control" id="TREATMENT_DURATION">
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Stage of Cancer after 6 months of PE</label>
@@ -143,7 +145,7 @@
     // Loop through each column of data
     for (var i = 0; i < data[0].length; i++) {
       // Get the input element with the matching name
-      var input = document.getElementById('data[0][i]');
+      var input = document.getElementById(data[0][i]);
       // Set the input value to the row data
 	    alert(data[0][i]);
       input.value = data[serial][i];
