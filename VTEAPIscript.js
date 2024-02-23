@@ -96,28 +96,9 @@ function updateSpreadsheet(data, serial) {
 	}
 	
 	async function main() {
-		const res = await fetchData("https://script.google.com/macros/s/AKfycbzLYOsl1eXuOltHEKcs4KchmTPq6gCum5o0zufOyUqQ_CN88gxCzwZJsNHOWg1wTWPr/exec", {key1: "value1"});
+		const res = await fetchData("https://script.google.com/macros/s/AKfycbzLYOsl1eXuOltHEKcs4KchmTPq6gCum5o0zufOyUqQ_CN88gxCzwZJsNHOWg1wTWPr/exec", JSON.stringify(formData));
 		console.log(res);
 	}
 	
 	main();
-	
-	fetch("https://script.google.com/macros/s/AKfycbzLYOsl1eXuOltHEKcs4KchmTPq6gCum5o0zufOyUqQ_CN88gxCzwZJsNHOWg1wTWPr/exec", {
-		method: "POST",
-		mode: "no-cors",
-		body: formData
-	}).then(function(response) {
-		// Parse the response as JSON
-		return response.json();
-	}).then(function(data) {
-		// Display a success or error message based on the result
-		if (data.result === "success") {
-			alert("Data updated successfully!");
-		} else {
-			alert("Error: " + data.error);
-		}
-	}).catch(function(error) {
-		// Display a generic error message
-		alert("Something went wrong: " + error);
-	});
 }
