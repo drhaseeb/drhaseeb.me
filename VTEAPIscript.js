@@ -49,9 +49,9 @@ function fillForm(data) {
 	var submit = document.getElementById('submit');
 	submit.addEventListener('click', function(event) {
 		// Prevent the default form submission
-		event.preventDefault();
+		//event.preventDefault();
 		// Update the spreadsheet with the form data
-		updateSpreadsheet(data, select.value);
+		//updateSpreadsheet(data, select.value);
 	});
 }
 
