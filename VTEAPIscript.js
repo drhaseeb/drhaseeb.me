@@ -79,7 +79,7 @@ function updateSpreadsheet(data, serial) {
  	*/
 	var formData = new FormData(form);
 	// Update the spreadsheet with the form data
-	fetch("https://script.google.com/macros/s/AKfycbwx5El9YibCL1mDrkd3hN73mL1086du2PaXs5gFIMezbK2G9njqWx8-BPDb8rAdLYfq/exec", {
+	fetch("https://script.google.com/macros/s/AKfycbwA4O0n-fJsHEyJjmGbwyU0JOFPvjMr_wssrwu9oRW3i3NbthHGLb6J9ZGY5-EtXOJ1/exec", {
 		method: "POST",
 		mode: "no-cors",
 		body: formData
