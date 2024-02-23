@@ -1,28 +1,12 @@
-// Your client ID and API key from the Google Cloud console
-var CLIENT_ID = '678218067433-lt9r3i0pfdrbdh165c2d7isoial08422.apps.googleusercontent.com';
-var API_KEY = 'AIzaSyDdXpNR_fkUK2YYz4zpdcL0_thO1bGCFDU';
+var API_KEY = 'AIzaSyDdXpNR_fkUK2YYz4zpdcL0_thO1bGCFDU'; // Replace with your API key
+var SPREADSHEET_ID = '1npHjzp9Y8RxJhsb-ehdRrE9fIWLguzoH6WYaAYcThwo'; // Replace with your spreadsheet ID
+var RANGE = 'A1:O'; // Replace with your range of data
 
-// The scopes you need to access the Google Sheets API
-var SCOPES = 'https://www.googleapis.com/auth/spreadsheets';
-
-// The ID of the spreadsheet you want to access
-var SPREADSHEET_ID = '1npHjzp9Y8RxJhsb-ehdRrE9fIWLguzoH6WYaAYcThwo';
-
-// The range of cells inside spreadsheet
-var RANGE = 'A1:O';
-
-// Initialize the Google Identity Services client
-var client = google.accounts.oauth2.initTokenClient({
-	client_id: CLIENT_ID,
-	scope: SCOPES,
-	callback: (tokenResponse) => {
-		// The user is signed in
-		var token = tokenResponse.access_token;
-		console.log('Token: ' + token);
-		// Change Get Token button
-		var btnSuccess = document.getElementsByClassName(".btn-success");
-		btnSuccess.innerHTML = "Signed In";
-
+function initClient() {
+	gapi.client.init({
+		apiKey: API_KEY,
+		discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
+	}).then(function () {
 		// Get the data from the spreadsheet
 		gapi.client.sheets.spreadsheets.values.get({
 			spreadsheetId: SPREADSHEET_ID,
@@ -34,24 +18,12 @@ var client = google.accounts.oauth2.initTokenClient({
 			// Handle the error
 			console.error(error);
 		});
-	},
-});
-
-// Request an access token from the user
-function getToken() {
-	client.requestAccessToken();
-}
-
-// Revoke the access token from the user
-function revokeToken() {
-	google.accounts.oauth2.revoke(token, () => {
-		console.log('Token revoked');
-		var btnSuccess = document.getElementsByClassName(".btn-success");
-		btnSuccess.innerHTML = "Get Token";
 	});
 }
 
-// Fill form
+// Load the API client on page load
+gapi.load('client', initClient);
+
 function fillForm(data) {
 	// Get the form element
 	var form = document.querySelector('form');
@@ -104,15 +76,11 @@ function updateSpreadsheet(data, serial) {
 		formData.push(form.elements[data[0][i]].value);
 	}
 	// Update the spreadsheet with the form data
-	gapi.client.setToken({access_token: token});
-	gapi.client.sheets.spreadsheets.values.update({
-		spreadsheetId: SPREADSHEET_ID,
-		range: 'A' + (parseInt(serial) + 1) + ':N' + (parseInt(serial) + 1),
-		valueInputOption: 'USER_ENTERED',
-		values: [formData]
+	fetch("https://script.google.com/macros/s/AKfycbykmUa5hrlE0Qmy52WB_bTQ-A5Qwsb5h9vTFB3fGGtV5ME-YYEJEg2ZVw83_Vm-DZBp/exec"{
+		method: "POST",
+		body: [formData]
 	}).then(function(response) {
-		// Display a success message
-		alert('Spreadsheet updated successfully!');
+		('Spreadsheet updated successfully!');
 	}, function(error) {
 		// Display an error message
 		alert('Spreadsheet update failed: ' + error.message);
