@@ -23,11 +23,11 @@
                 </div>
                 <div class="mb-3">
                   <label class="form-label">MR #</label>
-                  <input class="form-control" name="MRNO" readonly>
+                  <input class="form-control" id="MRNO" readonly>
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Name</label>
-                  <input class="form-control" name="PATIENT_NAME" readonly>
+                  <input class="form-control" id="PATIENT_NAME" readonly>
                 </div>
                 <div class="d-none">
                   <input class="form-control" name="AGE" readonly>
@@ -143,7 +143,7 @@
     // Loop through each column of data
     for (var i = 0; i < data[0].length; i++) {
       // Get the input element with the matching name
-      var input = document.querySelector('input[name="' + data[0][i] + '"]');
+      var input = document.getElementById(data[0][i]);
       // Set the input value to the row data
       input.value = data[serial][i];
     }
