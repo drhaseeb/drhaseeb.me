@@ -78,7 +78,11 @@ function updateSpreadsheet(data, serial) {
 	// Update the spreadsheet with the form data
 	fetch("https://script.google.com/macros/s/AKfycbykmUa5hrlE0Qmy52WB_bTQ-A5Qwsb5h9vTFB3fGGtV5ME-YYEJEg2ZVw83_Vm-DZBp/exec", {
 		method: "POST",
-		body: [formData]
+		headers: {
+			"Content-Type": "application/json",
+			// 'Content-Type': 'application/x-www-form-urlencoded',
+		},
+		body: JSON.stringify(formData)
 	}).then(function(response) {
 		('Spreadsheet updated successfully!');
 	}, function(error) {
