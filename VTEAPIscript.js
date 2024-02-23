@@ -1,6 +1,3 @@
-// Load Google Client Script
-import("https://accounts.google.com/gsi/client")
-
 // Your client ID and API key from the Google Cloud console
 var CLIENT_ID = '678218067433-lt9r3i0pfdrbdh165c2d7isoial08422.apps.googleusercontent.com';
 var API_KEY = 'AIzaSyDdXpNR_fkUK2YYz4zpdcL0_thO1bGCFDU';
