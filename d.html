@@ -88,7 +88,7 @@
 <script>
   var API_KEY = 'AIzaSyDdXpNR_fkUK2YYz4zpdcL0_thO1bGCFDU'; // Replace with your API key
   var SPREADSHEET_ID = '1npHjzp9Y8RxJhsb-ehdRrE9fIWLguzoH6WYaAYcThwo'; // Replace with your spreadsheet ID
-  var RANGE = 'A1:N'; // Replace with your range of data
+  var RANGE = 'A1:O'; // Replace with your range of data
 
   function initClient() {
     gapi.client.init({
@@ -153,6 +153,7 @@
       // Get the input element with the matching name
       var input = document.getElementById(data[0][i]);
       // Set the input value to the row data
+	    if(data[serial][i]===null) data[serial][i] === "-";
       input.value = data[serial][i];
 	    alert(input.value);
     }
