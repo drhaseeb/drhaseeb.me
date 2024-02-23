@@ -49,9 +49,9 @@ function fillForm(data) {
 	var submit = document.getElementById('submit');
 	submit.addEventListener('click', function(event) {
 		// Prevent the default form submission
-		//event.preventDefault();
+		event.preventDefault();
 		// Update the spreadsheet with the form data
-		//updateSpreadsheet(data, select.value);
+		updateSpreadsheet(data, select.value);
 	});
 }
 
@@ -71,22 +71,29 @@ function updateSpreadsheet(data, serial) {
 	// Get the form element
 	var form = document.querySelector('form');
 	// Get the form data as an array
+	/*
 	var formData = [];
 	for (var i = 0; i < data[0].length; i++) {
 		formData.push(form.elements[data[0][i]].value);
 	}
+ 	*/
+	var formData = new FormData(form);
 	// Update the spreadsheet with the form data
-	fetch("https://script.google.com/macros/s/AKfycbykmUa5hrlE0Qmy52WB_bTQ-A5Qwsb5h9vTFB3fGGtV5ME-YYEJEg2ZVw83_Vm-DZBp/exec", {
+	fetch("https://script.google.com/macros/s/AKfycbwpGkWCbmHV2swYDragGvducg8_DzPA6gtzIf_9YmsmXxN3fjMdNUJb5KU4lYE1FY1w/exec", {
 		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			// 'Content-Type': 'application/x-www-form-urlencoded',
-		},
-		body: JSON.stringify(formData)
+		body: formData
 	}).then(function(response) {
-		('Spreadsheet updated successfully!');
-	}, function(error) {
-		// Display an error message
-		alert('Spreadsheet update failed: ' + error.message);
+		// Parse the response as JSON
+		return response.json();
+	}).then(function(data) {
+		// Display a success or error message based on the result
+		if (data.result === "success") {
+			alert("Data updated successfully!");
+		} else {
+			alert("Error: " + data.error);
+		}
+	}).catch(function(error) {
+		// Display a generic error message
+		alert("Something went wrong: " + error);
 	});
 }
