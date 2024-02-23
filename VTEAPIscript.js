@@ -82,7 +82,8 @@ function updateSpreadsheet(data, serial) {
 	// Fetch the web app URL with a POST request and the form data as the body
 	fetch("https://script.google.com/macros/s/AKfycbzLYOsl1eXuOltHEKcs4KchmTPq6gCum5o0zufOyUqQ_CN88gxCzwZJsNHOWg1wTWPr/exec", {
 		method: "POST",
-		body: formData
+		body: formData,
+		followRedirects: true
 	})
 	.then(function(response) {
 		// Parse the response as JSON
